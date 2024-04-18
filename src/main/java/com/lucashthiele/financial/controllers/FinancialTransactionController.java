@@ -19,7 +19,7 @@ public class FinancialTransactionController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity create(@RequestBody CreateTransactionData data){
+    public ResponseEntity<ResponseEntity.BodyBuilder> create(@RequestBody CreateTransactionData data){
         service.createTransaction(data);
         return ResponseEntity.ok().build();
     }

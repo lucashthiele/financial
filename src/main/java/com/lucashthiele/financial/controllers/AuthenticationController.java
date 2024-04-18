@@ -23,7 +23,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity auth(@RequestBody AuthenticationData data){
+    public ResponseEntity<JWTTokenData> auth(@RequestBody AuthenticationData data){
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var authentication = manager.authenticate(authenticationToken);
 
