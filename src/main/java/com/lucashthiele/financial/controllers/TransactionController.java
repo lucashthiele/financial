@@ -1,7 +1,7 @@
 package com.lucashthiele.financial.controllers;
 
 import com.lucashthiele.financial.models.transaction.CreateTransactionData;
-import com.lucashthiele.financial.services.FinancialTransactionService;
+import com.lucashthiele.financial.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
 
     @Autowired
-    FinancialTransactionService service;
+    TransactionService service;
 
     @PostMapping
     @Transactional
