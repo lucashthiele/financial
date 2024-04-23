@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/transaction")
-public class FinancialTransactionController {
+public class TransactionController {
 
     @Autowired
     FinancialTransactionService service;

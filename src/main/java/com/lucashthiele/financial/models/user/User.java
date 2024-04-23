@@ -1,8 +1,9 @@
 package com.lucashthiele.financial.models.user;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,29 +12,23 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-@Document("users")
+@Entity(name = "User")
+@Table(name = "USERS")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
     @Id
-    private String id;
+    private Integer id;
     private String email;
+    @Setter
     private String password;
     private String firstName;
     private String surname;
     private LocalDate birthDate;
+    @Setter
     private Integer passwordRecoveryCode;
-
-    public void setPasswordRecoveryCode(Integer passwordRecoveryCode) {
-        this.passwordRecoveryCode = passwordRecoveryCode;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

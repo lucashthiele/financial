@@ -13,13 +13,13 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
-    public String createUser(CreateUserData data) {
+    public Integer createUser(CreateUserData data) {
         var user = new User(null, data.email(), encryptPassword(data.password()), data.firstName(), data.surname(), data.birthDate(), null);
         repository.save(user);
         return user.getId();
     }
 
-    public User getUserById(String id) {
+    public User getUserById(Integer id) {
         return repository.findById(id).orElseThrow();
     }
 
