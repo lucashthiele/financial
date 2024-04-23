@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDetailData> read(@PathVariable String id) {
+    public ResponseEntity<UserDetailData> read(@PathVariable Integer id) {
         var user = service.getUserById(id);
 
         return ResponseEntity.ok(new UserDetailData(user));
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}/reset-password")
-    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordData data, @PathVariable String id) {
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordData data, @PathVariable Integer id) {
         var user = service.getUserById(id);
         service.updatePassword(user, data.password());
 
