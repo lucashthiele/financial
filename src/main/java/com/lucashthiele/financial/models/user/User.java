@@ -15,6 +15,7 @@ import java.util.List;
 @Entity(name = "User")
 @Table(name = "USERS")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -22,12 +23,10 @@ public class User implements UserDetails {
     @Id
     private Integer id;
     private String email;
-    @Setter
     private String password;
     private String firstName;
     private String surname;
     private LocalDate birthDate;
-    @Setter
     private Integer passwordRecoveryCode;
 
     @Override
