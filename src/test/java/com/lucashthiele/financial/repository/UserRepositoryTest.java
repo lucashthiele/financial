@@ -43,7 +43,6 @@ public class UserRepositoryTest {
     /**
      * TODO - add new tests scenarios, need to evaluate all usages od the repository
      *  - Methods
-     *      findByEmail
      *      findByPasswordRecoveryCode
      */
 
@@ -62,5 +61,14 @@ public class UserRepositoryTest {
                 .isThrownBy(() -> {
                     userRepository.findById(1).orElseThrow();
                 });
+    }
+
+    @Test
+    public void UserRepository_findByEmail_ReturnsUser() {
+        userRepository.save(this.user);
+
+        var retrievedUser = userRepository.findByEmail(this.user.getEmail());
+
+        Assertions.assertThat(retrievedUser).isEqualTo(this.user);
     }
 }
