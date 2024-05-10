@@ -40,12 +40,6 @@ public class UserRepositoryTest {
         Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
     }
 
-    /**
-     * TODO - add new tests scenarios, need to evaluate all usages od the repository
-     *  - Methods
-     *      findByPasswordRecoveryCode
-     */
-
     @Test
     public void UserRepository_findById_ReturnUser() {
         var savedUser = userRepository.save(this.user);
