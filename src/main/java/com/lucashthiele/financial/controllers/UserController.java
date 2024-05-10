@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.security.SecureRandom;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -56,7 +54,7 @@ public class UserController {
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordData data) {
         var email = data.email();
-        var recoveryToken = generateRandomToken();
+        var recoveryToken = userService.generateRandomToken();
 
         userService.updatePasswordRecoveryCode(recoveryToken, email);
         kafkaService.produceEmailSenderMessage(recoveryToken, email);
@@ -82,11 +80,6 @@ public class UserController {
         userService.updatePassword(user, data.password());
 
         return ResponseEntity.ok().build();
-    }
-
-    private Integer generateRandomToken() {
-        var secureRandom = new SecureRandom();
-        return Math.abs(secureRandom.nextInt());
     }
 
 }
