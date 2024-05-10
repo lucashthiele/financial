@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "USERS")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
