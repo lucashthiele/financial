@@ -71,4 +71,15 @@ public class UserRepositoryTest {
 
         Assertions.assertThat(retrievedUser).isEqualTo(this.user);
     }
+
+    @Test
+    public void UserRepository_findByPasswordRecoveryCode_ReturnsUser() {
+        var recoveryCode = 12345678;
+        this.user.setPasswordRecoveryCode(recoveryCode);
+        userRepository.save(this.user);
+
+        var retrievedUser = userRepository.findByPasswordRecoveryCode(recoveryCode);
+
+        Assertions.assertThat(retrievedUser).isEqualTo(this.user);
+    }
 }
