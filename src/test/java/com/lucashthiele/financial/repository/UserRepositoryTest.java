@@ -36,9 +36,14 @@ public class UserRepositoryTest {
         Assertions.assertThat(savedUser).isNotNull();
         Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
     }
-
-    @AfterEach
-    public void cleanDatabaseAfterEachTest(@Autowired JdbcTemplate jdbcTemplate) {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "USERS");
-    }
+    /**
+     * TODO - add new tests scenarios, need to evaluate all usages od the repository
+     *  - Methods
+     *      findById
+     *      findByEmail
+     *      findByPasswordRecoveryCode
+     *  - Exceptions
+     *      findById({id}).orElseThrow
+     *
+     */
 }
