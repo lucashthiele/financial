@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 @DataJpaTest
 @AutoConfigureEmbeddedDatabase
@@ -42,12 +43,8 @@ public class UserRepositoryTest {
     /**
      * TODO - add new tests scenarios, need to evaluate all usages od the repository
      *  - Methods
-     *      findById
      *      findByEmail
      *      findByPasswordRecoveryCode
-     *  - Exceptions
-     *      findById({id}).orElseThrow
-     *
      */
 
     @Test
@@ -59,4 +56,11 @@ public class UserRepositoryTest {
         Assertions.assertThat(retrievedUser).isEqualTo(this.user);
     }
 
+    @Test
+    public void UserRepository_findById_ThrowNotFoundException() {
+        Assertions.assertThatExceptionOfType(NoSuchElementException.class)
+                .isThrownBy(() -> {
+                    userRepository.findById(1).orElseThrow();
+                });
+    }
 }
