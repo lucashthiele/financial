@@ -1,20 +1,21 @@
 package com.lucashthiele.financial.models.transaction;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("transactions")
+@Entity(name= "Transaction")
+@Table(name = "TRANSACTIONS")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class FinancialTransaction {
+public class Transaction {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private Double value;
     private String type;
     private String origin;

@@ -1,6 +1,8 @@
-server.port=
-spring.data.mongodb.uri=
-spring.data.mongodb.database=
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+spring.jpa.properties.hibernate.dialect=
 
 api.security.token.secret=
 
