@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TransactionService {
 
     @Autowired
-    TransactionRepository repository;
+    private TransactionRepository repository;
 
     public void createTransaction(CreateTransactionData data) {
         var transaction = new Transaction(null, data.value(), data.type(), data.origin());
