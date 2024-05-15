@@ -1,27 +1,31 @@
 package com.lucashthiele.financial.repository;
 
+import com.lucashthiele.financial.AbstractPostgreSQLTestContainerIT;
 import com.lucashthiele.financial.models.user.User;
 import com.lucashthiele.financial.repositories.UserRepository;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
-@DataJpaTest
-@AutoConfigureEmbeddedDatabase
-public class UserRepositoryTest {
+
+public class UserRepositoryTest extends AbstractPostgreSQLTestContainerIT {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     private User user;
 
     @BeforeEach
     public void setupData() {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "USERS");
+
         this.user = User.builder()
                 .id(null)
                 .email("test@test.com")
