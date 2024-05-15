@@ -22,9 +22,9 @@ public abstract class AbstractPostgreSQLTestContainerIT {
     public static final PostgreSQLContainer database;
 
     static {
-        DockerImageName postgres = DockerImageName.parse("postgres:13.1");
+        DockerImageName postgres = DockerImageName.parse("postgres:15.6");
         int containerPort = 5432 ;
-        int localPort = 5432 ;
+        int localPort = 30769 ;
         database = new PostgreSQLContainer<>(postgres)
                 .withDatabaseName("test")
                 .withUsername("test")
