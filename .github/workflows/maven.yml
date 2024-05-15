@@ -7,21 +7,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_DB: db
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -31,11 +17,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Set up Flyway
-        uses: joshuaavalon/flyway-action@v3.0.0
-        with:
-          url: jdbc:postgresql://postgres:5432/db
-          user: user
-          password: password
       - name: Build and test with Maven
-        run: mvn --batch-mode package
+        run: mvn clean verify --no-transfer-progress
