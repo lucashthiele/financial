@@ -1,5 +1,9 @@
 package com.lucashthiele.financial;
 
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.HostConfig;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContextInitializer;
@@ -8,17 +12,28 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = AbstractPostgreSQLTestContainerIT.Initializer.class)
 @Testcontainers
 public abstract class AbstractPostgreSQLTestContainerIT {
-    private static final String POSTGRES_VERSION = "postgres:15.6";
-    public static PostgreSQLContainer database;
+    public static final PostgreSQLContainer database;
 
     static {
-        database = new PostgreSQLContainer(POSTGRES_VERSION);
+        DockerImageName postgres = DockerImageName.parse("postgres:15.6");
+        int containerPort = 5432 ;
+        int localPort = 30769 ;
+        database = new PostgreSQLContainer<>(postgres)
+                .withDatabaseName("test")
+                .withUsername("test")
+                .withPassword("test")
+                .withReuse(true)
+                .withExposedPorts(containerPort)
+                .withCreateContainerCmdModifier(createContainerCmd -> createContainerCmd.withHostConfig(
+                        new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(localPort), new ExposedPort(containerPort)))
+                ));
         database.start();
     }
 
